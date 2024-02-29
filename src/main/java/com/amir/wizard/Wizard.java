@@ -8,6 +8,8 @@ import com.amir.artifact.Artifact;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -15,6 +17,7 @@ import jakarta.persistence.OneToMany;
 public class Wizard implements Serializable {
 
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
 	
@@ -58,4 +61,8 @@ public class Wizard implements Serializable {
         return this.artifacts.size();
     }
 
+	public void removeAllArtifacts() {
+        this.artifacts.stream().forEach(artifact -> artifact.setOwner(null));
+        this.artifacts = new ArrayList<>();
+    }
 }

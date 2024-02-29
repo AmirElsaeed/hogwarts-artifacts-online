@@ -21,7 +21,7 @@ import com.amir.system.StatusCode;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/artifacts")
+@RequestMapping("${api.endpoint.base-url}/artifacts")
 public class ArtifactController {
 
 	private final ArtifactService artifactService;
@@ -36,7 +36,7 @@ public class ArtifactController {
 		this.artifactDtoToArtifactConverter = artifactDtoToArtifactConverter;
 	}
 
-	@GetMapping("/{artifactId}")
+	@GetMapping( "/{artifactId:^[a-zA-Z0-9]*$}")
 	public Result findArtifactById(@PathVariable String artifactId) {
 		Artifact foundArtifact = this.artifactService.findById(artifactId);
 		// to fix StackOverflow caused by bidirectional between owner and artifact
@@ -44,7 +44,7 @@ public class ArtifactController {
 		return new Result(true, StatusCode.SUCCESS, "Find One Success", artifactDto);
 	}
 	
-	@GetMapping("")
+	@GetMapping
 	public Result findAllArtifacts() {
 		List<Artifact> foundArtifacts = this.artifactService.findAll();
 		List<ArtifactDto> artifactDtos = foundArtifacts.stream()
@@ -55,7 +55,7 @@ public class ArtifactController {
 		
 	}
 	
-	@PostMapping("")
+	@PostMapping
 	public Result addArtifact(@Valid @RequestBody ArtifactDto artifactDto) {
 		Artifact newArtifact = this.artifactDtoToArtifactConverter.convert(artifactDto);
 		Artifact savedArtifact = this.artifactService.save(newArtifact);

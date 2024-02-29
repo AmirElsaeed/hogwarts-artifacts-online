@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.amir.system.exception.ObjectNotFoundException;
 import com.amir.system.utils.IdWorker;
 import com.amir.wizard.Wizard;
 
@@ -100,7 +101,7 @@ class ArtifactServiceTest {
 		});
 
 		// Then
-		assertThat(thrown).isInstanceOf(ArtifactNotFoundException.class)
+		assertThat(thrown).isInstanceOf(ObjectNotFoundException.class)
 				.hasMessage("Could not find artifact with Id " + id);
 		verify(artifactRepository, times(1)).findById(id);
 	}
@@ -152,7 +153,7 @@ class ArtifactServiceTest {
         
 		// simulate requestBody in front-end
 		Artifact update = new Artifact();
-		update.setId("1250808601744904192");
+//		update.setId("1250808601744904192");
 		update.setName("Invisibility Cloak");
 		update.setDescription("A new description...");
 		update.setImgUrl("ImageUrl");
@@ -164,7 +165,7 @@ class ArtifactServiceTest {
 		Artifact updatedArtifact = artifactService.update("1250808601744904192", update);
 		
 		// Then
-		assertThat(updatedArtifact.getId()).isEqualTo(update.getId());
+		assertThat(updatedArtifact.getId()).isEqualTo("1250808601744904192");
 		assertThat(updatedArtifact.getDescription()).isEqualTo(update.getDescription());
 		verify(artifactRepository, times(1)).findById("1250808601744904192");
 		verify(artifactRepository, times(1)).save(oldArtifact);
@@ -181,7 +182,7 @@ class ArtifactServiceTest {
 		given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 		
 		// When
-		assertThrows(ArtifactNotFoundException.class, () -> {
+		assertThrows(ObjectNotFoundException.class, () -> {
 			artifactService.update("1250808601744904192", update);
 		});
 		
@@ -214,7 +215,7 @@ class ArtifactServiceTest {
 		given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 		
 		// When
-		assertThrows(ArtifactNotFoundException.class, () -> {
+		assertThrows(ObjectNotFoundException.class, () -> {
 			artifactService.delete("1250808601744904192");
 		});
 		

@@ -7,6 +7,7 @@ import com.amir.artifact.Artifact;
 import com.amir.artifact.ArtifactRepository;
 import com.amir.hogwartsuser.HogwartsUser;
 import com.amir.hogwartsuser.UserRepository;
+import com.amir.hogwartsuser.UserService;
 import com.amir.wizard.Wizard;
 import com.amir.wizard.WizardRepository;
 
@@ -17,14 +18,14 @@ public class DBDataInitializer implements CommandLineRunner {
 	
 	private final WizardRepository wizardRepository;
 	
-	private final UserRepository userRepository;
+	private final UserService userService;
 	
 	public DBDataInitializer(ArtifactRepository artifactRepository,
 							 WizardRepository wizardRepository,
-							 UserRepository userRepository) {
+							 UserService userService) {
 		this.artifactRepository = artifactRepository;
 		this.wizardRepository = wizardRepository;
-		this.userRepository = userRepository;
+		this.userService = userService;
 	}
 
 
@@ -109,9 +110,9 @@ public class DBDataInitializer implements CommandLineRunner {
 		u3.setEnabled(false);
 		u3.setRoles("user");
 		
-		userRepository.save(u1);
-		userRepository.save(u2);
-		userRepository.save(u3);
+		userService.save(u1);
+		userService.save(u2);
+		userService.save(u3);
 		
 		wizardRepository.save(w1);
 		wizardRepository.save(w2);

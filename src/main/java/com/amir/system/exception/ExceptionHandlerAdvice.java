@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.amir.system.Result;
 import com.amir.system.StatusCode;
@@ -86,9 +87,16 @@ public class ExceptionHandlerAdvice {
 		return new Result(false, StatusCode.FORBIDDEN, "No permission.", ex.getMessage());
 	}
 	
+	@ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    Result handleNoHandlerFoundException(NoHandlerFoundException ex) {
+        return new Result(false, StatusCode.NOT_FOUND, "This API endpoint is not found.", ex.getMessage());
+    }
+	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	Result handleOtherException(Exception ex) {
+		ex.printStackTrace();
 		return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "A server internal error occurs.", ex.getMessage());
 	}
 }

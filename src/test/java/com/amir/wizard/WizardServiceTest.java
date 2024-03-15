@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.amir.artifact.Artifact;
 import com.amir.artifact.ArtifactRepository;
@@ -23,6 +24,7 @@ import com.amir.artifact.ArtifactService;
 import com.amir.system.exception.ObjectNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles(value = "dev")
 class WizardServiceTest {
 	
 	@Mock

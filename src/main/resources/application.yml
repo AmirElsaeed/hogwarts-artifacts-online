@@ -1,21 +1,16 @@
-server:
-  port: 8081
+# profile decide what is the active profile
 spring:
-  datasource:
-    url: jdbc:h2:mem:hogwarts
-    #;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 
-  jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
-  security:
-    user:
-      name: admin
-      password: admin
+  profiles:
+    active: dev
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false    
 
 api:
   endpoint:
     base-url: /api/v1
-    
+
+server:
+  port: 8081    

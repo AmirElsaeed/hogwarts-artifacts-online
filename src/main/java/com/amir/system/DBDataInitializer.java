@@ -1,6 +1,7 @@
 package com.amir.system;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.amir.artifact.Artifact;
@@ -12,6 +13,7 @@ import com.amir.wizard.Wizard;
 import com.amir.wizard.WizardRepository;
 
 @Component
+@Profile("dev")
 public class DBDataInitializer implements CommandLineRunner {
 	
 	private final ArtifactRepository artifactRepository;

@@ -13,7 +13,7 @@ import com.amir.wizard.Wizard;
 import com.amir.wizard.WizardRepository;
 
 @Component
-@Profile("dev")
+@Profile(value = {"dev", "prod"})
 public class DBDataInitializer implements CommandLineRunner {
 	
 	private final ArtifactRepository artifactRepository;

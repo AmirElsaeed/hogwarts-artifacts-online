@@ -1,8 +1,22 @@
 spring:
+  application:
+    name: hogwarts-artifact-online
+  cloud:
+    vault:
+      authentication: token
+      #token: hvs.aKHT7wZDpeZY99gkydg3QczE
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+      kv:
+        enabled: true   
+  config:
+    import: vault://
   datasource:
     url: ${datasource-url} #jdbc:h2:mem:hogwarts-prod
-    username: ${datasource-username}
-    password: ${datasource-password}
-  jpa:
-    hibernate:
-      ddl-auto: none # turn off DDL auto generation
+    username: ${datasource-username} #prod
+    password: ${datasource-password} #prod
+    driver-class-name: org.h2.Driver
+# jpa:
+#   hibernate:
+#     ddl-auto: none # turn off DDL auto generation

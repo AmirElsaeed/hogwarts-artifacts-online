@@ -1,8 +1,21 @@
 spring:
+  application:
+    name: hogwarts-artifact-online
+  cloud:
+    vault:
+      authentication: token
+      #token: hvs.aKHT7wZDpeZY99gkydg3QczE
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+      kv:
+        enabled: true
+  config:
+    import: vault://
   datasource:
-    url: jdbc:h2:mem:hogwarts-dev
+    url: ${datasource-url} #jdbc:h2:mem:hogwarts-dev
+    username: ${datasource-username} #dev
+    password: ${datasource-password} #dev
     driver-class-name: org.h2.Driver
-    username: sa
-    password: 
   jpa:
     show-sql: true

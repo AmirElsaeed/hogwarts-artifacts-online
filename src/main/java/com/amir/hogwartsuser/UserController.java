@@ -38,7 +38,7 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public Result findAllArtifacts() {
+	public Result findAllUsers() {
 		List<HogwartsUser> hogwartsUsers = this.userService.findAll();
 		List<UserDto> userDtos = hogwartsUsers.stream().map(this.userToUserDtoConverter::convert)
 								 .collect(Collectors.toList());

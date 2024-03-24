@@ -57,7 +57,6 @@ public class UserService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.err.println("loadUserByUsername");
 		// findByUsername return HogwartsUser but i need UserDetails so i am using adapter pattern here
 		return this.userRepository.findByUsername(username)
 		.map(hogwartsUser -> new MyUserPrincipal(hogwartsUser))

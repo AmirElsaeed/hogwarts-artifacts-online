@@ -90,7 +90,6 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public JwtEncoder jwtEncoder() {
-		System.err.println("jwtEncoder");
 		JWK jwk = new RSAKey
 				.Builder(this.publicKey)
 				.privateKey(this.privateKey)
@@ -101,16 +100,14 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public JwtDecoder jwtDecoder() {
-		System.err.println("jwtDecoder");
 		 return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
 	}
 	
 	@Bean
 	public JwtAuthenticationConverter jwtAuthenticationConverter() {
-		System.err.println("jwtAuthenticationConverter");
 		JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 		jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
-		jwtGrantedAuthoritiesConverter.setAuthorityPrefix(""); // default e.g. SOCPE_ROLE_admin
+		jwtGrantedAuthoritiesConverter.setAuthorityPrefix(""); // default e.g. SCOPE_ROLE_admin
 		
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);

@@ -4,7 +4,7 @@ spring:
   cloud:
     vault:
       authentication: token
-      #token: hvs.aKHT7wZDpeZY99gkydg3QczE
+      token: ${VAULT_TOKEN}
       scheme: http
       host: 127.0.0.1
       port: 8200

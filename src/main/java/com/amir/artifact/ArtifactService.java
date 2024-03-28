@@ -2,6 +2,7 @@ package com.amir.artifact;
 
 import java.util.List;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.stereotype.Service;
 
 import com.amir.system.exception.ObjectNotFoundException;
@@ -27,6 +28,7 @@ public class ArtifactService {
 				.orElseThrow(() -> new ObjectNotFoundException("artifact", artifactId));
 	}
 	
+	@Timed("findAllArtifactsService.time")
 	public List<Artifact> findAll() {
 		return this.artifactRepository.findAll();
 	}

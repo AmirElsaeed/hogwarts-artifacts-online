@@ -3,6 +3,7 @@ package com.amir.artifact;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,18 +28,21 @@ public class ArtifactController {
 	private final ArtifactService artifactService;
 	private final ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter;
 	private final ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter;
+	private final MeterRegistry meterRegistry;
 
 	public ArtifactController(ArtifactService artifactService,
-			ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter,
-			ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter) {
+							  ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter,
+							  ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter, MeterRegistry meterRegistry) {
 		this.artifactService = artifactService;
 		this.artifactToArtifactDtoConverter = artifactToArtifactDtoConverter;
 		this.artifactDtoToArtifactConverter = artifactDtoToArtifactConverter;
+		this.meterRegistry = meterRegistry;
 	}
 
 	@GetMapping( "/{artifactId:^[a-zA-Z0-9]*$}")
 	public Result findArtifactById(@PathVariable String artifactId) {
 		Artifact foundArtifact = this.artifactService.findById(artifactId);
+		meterRegistry.counter("artifact.id."+artifactId).increment();
 		// to fix StackOverflow caused by bidirectional between owner and artifact
 		ArtifactDto artifactDto = artifactToArtifactDtoConverter.convert(foundArtifact); 
 		return new Result(true, StatusCode.SUCCESS, "Find One Success", artifactDto);

@@ -13,4 +13,41 @@ api:
     base-url: /api/v1
 
 server:
-  port: 8081    
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, beans, configprops, heapDump, httpExchanges, loggers, mappings, custom-beans
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    env:
+      show-values: always #http://localhost:8081/actuator/env
+    configprops:
+      show-values: always
+
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+    java:
+      enabled: true
+    os:
+      enabled: true
+info:
+  app:
+    name: hogwarts-artifacts-online
+    description: this project is for training purposes only
+    version: @project.version@
+    author: Amir Elsaeed
+    links:
+      github: https://github.com/AmirElsaeed/hogwarts-artifacts-online
+      linkedin: https://www.linkedin.com/in/amir-elsaeed

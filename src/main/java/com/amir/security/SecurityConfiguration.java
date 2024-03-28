@@ -7,6 +7,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -59,7 +60,6 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		System.err.println("securityFilterChain");
 		return http
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(HttpMethod.GET, this.baseUrl + "/artifacts/**").permitAll()
@@ -67,6 +67,8 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.POST, this.baseUrl + "/users").hasAuthority("ROLE_admin")
 						.requestMatchers(HttpMethod.PUT, this.baseUrl + "/users/**").hasAuthority("ROLE_admin")
 						.requestMatchers(HttpMethod.DELETE, this.baseUrl + "/users/**").hasAuthority("ROLE_admin")
+						.requestMatchers(EndpointRequest.to("health", "info")).permitAll()
+						.requestMatchers(EndpointRequest.toAnyEndpoint().excluding("health", "info")).hasAuthority("ROLE_admin")
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
 						// Disallow everything else.
 						.anyRequest().authenticated() // Always a good idea to put this as last

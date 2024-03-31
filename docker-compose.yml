@@ -15,12 +15,12 @@ services:
     ports:
       - 3000:3000
 
-  mailpit:
-    image: axllent/mailpit
-    restart: unless-stopped
-    ports:
-      - 8025:8025 # web UI
-      - 1025:1025 # SMTP
+#  mailpit:
+#    image: axllent/mailpit
+#    restart: unless-stopped
+#    ports:
+#      - 8025:8025 # web UI
+#      - 1025:1025 # SMTP
 
   zipkin:
     image: openzipkin/zipkin

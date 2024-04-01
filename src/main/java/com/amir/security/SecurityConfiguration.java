@@ -73,13 +73,13 @@ public class SecurityConfiguration {
 						// Disallow everything else.
 						.anyRequest().authenticated() // Always a good idea to put this as last
 						)
-				.headers(headers -> headers.frameOptions(o -> o.disable())) // for h2 console access
+				.headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable()) // for h2 console access
 				.csrf(csrf -> csrf.disable())
 				.cors(Customizer.withDefaults())
 				.httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(this.customBasicAuthenticationEntryPoint)) // this will show exception in response in case of wrong username/password
 				.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())
-												.authenticationEntryPoint(customBearerTokenAuthenticationEntryPoint)
-												.accessDeniedHandler(customBearerTokenAccessDeniedHandler))
+												.authenticationEntryPoint(this.customBearerTokenAuthenticationEntryPoint)
+												.accessDeniedHandler(this.customBearerTokenAccessDeniedHandler))
 				// don't keep a session for any request, this will save memory
 				.sessionManagement(sessionManagment -> sessionManagment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.build();

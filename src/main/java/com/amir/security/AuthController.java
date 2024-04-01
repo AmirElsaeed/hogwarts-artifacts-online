@@ -23,7 +23,6 @@ public class AuthController {
 	
 	@PostMapping("/login")
 	public Result getLoginInfo(Authentication authentication) {
-		LOGGER.debug("Authenticated user: '{0}'", authentication.getName());
 		return new Result(true, StatusCode.SUCCESS, "User Info and JSON Web Token",
 						  this.authService.createLoginInfo(authentication));
 	}

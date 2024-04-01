@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import com.amir.artifact.Artifact;
 import com.amir.artifact.ArtifactRepository;
 import com.amir.hogwartsuser.HogwartsUser;
-import com.amir.hogwartsuser.UserRepository;
 import com.amir.hogwartsuser.UserService;
 import com.amir.wizard.Wizard;
 import com.amir.wizard.WizardRepository;

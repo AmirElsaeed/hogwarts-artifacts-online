@@ -3,7 +3,6 @@ package com.amir.artifact.dto;
 import com.amir.wizard.dto.WizardDto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 
 public record ArtifactDto(String id,
 						  @NotEmpty String name, //@Pattern @Length

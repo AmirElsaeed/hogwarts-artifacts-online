@@ -38,14 +38,7 @@ class WizardServiceTest {
 	
 	@InjectMocks
 	ArtifactService artifactService;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
 	void testFindByIdSuccess() {

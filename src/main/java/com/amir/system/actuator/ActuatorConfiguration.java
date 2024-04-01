@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class ActuatorConfiguration {
     @Bean
     public HttpExchangeRepository httpExchangeRepository() {
-        InMemoryHttpExchangeRepository repository = new InMemoryHttpExchangeRepository();
-        return repository;
+        return new InMemoryHttpExchangeRepository();
     }
 }

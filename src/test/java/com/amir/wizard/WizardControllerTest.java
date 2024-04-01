@@ -57,10 +57,6 @@ class WizardControllerTest {
 		wizards.add(wizard);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	void testFindWizardByIdSuccess() throws Exception {
 		// Given

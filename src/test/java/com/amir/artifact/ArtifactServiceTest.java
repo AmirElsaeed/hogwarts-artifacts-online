@@ -39,7 +39,7 @@ class ArtifactServiceTest {
 	@InjectMocks
 	ArtifactService artifactService;
 	
-	List<Artifact> artifacts = new ArrayList<>();
+	final List<Artifact> artifacts = new ArrayList<>();
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -56,10 +56,6 @@ class ArtifactServiceTest {
         a2.setDescription("An invisibility cloak is used to make the wearer invisible.");
         a2.setImgUrl("ImageUrl");
         this.artifacts.add(a2);
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Test

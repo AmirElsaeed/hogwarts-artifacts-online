@@ -4,7 +4,7 @@ spring:
   cloud:
     vault:
       authentication: token
-      #token: hvs.aKHT7wZDpeZY99gkydg3QczE
+      token: ${VAULT_TOKEN}
       scheme: http
       host: 127.0.0.1
       port: 8200
@@ -20,3 +20,11 @@ spring:
 # jpa:
 #   hibernate:
 #     ddl-auto: none # turn off DDL auto generation
+
+ai:
+  openai:
+    endpoint: ${AI_OPENAI_ENDPOINT:https://api.openai.com/v1/chat/completions} #enviornment variable with default value
+    api-key: ${AI_OPENAI_KEY:YOUR_API_KEY} #put in key vault in prod
+  theb:
+    endpoint: ${AI_THEBAI_ENDPOINT:https://api.theb.ai/v1/chat/completions}
+    api-key: ${AI_THEBAI_KEY:YOUR_API_KEY} #put in key vault in prod

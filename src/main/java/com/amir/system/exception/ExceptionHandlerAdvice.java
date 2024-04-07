@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -92,7 +96,17 @@ public class ExceptionHandlerAdvice {
     Result handleNoHandlerFoundException(NoHandlerFoundException ex) {
         return new Result(false, StatusCode.NOT_FOUND, "This API endpoint is not found.", ex.getMessage());
     }
-	
+
+	@ExceptionHandler({HttpClientErrorException.class, HttpServerErrorException.class})
+	ResponseEntity<Result> handleRestClientException(HttpStatusCodeException ex) {
+		return new ResponseEntity<>(
+				new Result(false,
+						ex.getStatusCode().value(),
+						"A rest client error occurs, see data for details.",
+						ex.getMessage())
+				, ex.getStatusCode());
+	}
+
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	Result handleOtherException(Exception ex) {

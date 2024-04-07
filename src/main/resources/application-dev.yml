@@ -19,3 +19,10 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
+ai:
+  openai:
+    endpoint: ${AI_OPENAI_ENDPOINT:https://api.openai.com/v1/chat/completions} #enviornment variable with default value
+    api-key: ${AI_OPENAI_KEY:YOUR_API_KEY} #enviornment variable with default value
+  theb:
+    endpoint: ${AI_THEBAI_ENDPOINT:https://api.theb.ai/v1/chat/completions}
+    api-key: ${AI_THEBAI_KEY:YOUR_API_KEY} #enviornment variable with default value

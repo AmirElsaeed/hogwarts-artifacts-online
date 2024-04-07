@@ -6,6 +6,7 @@ target/
 
 ### docker ###
 docker/**
+/docker/grafana
 docker/grafana/grafana-config.env
 ### STS ###
 .apt_generated

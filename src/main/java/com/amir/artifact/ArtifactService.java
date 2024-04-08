@@ -11,6 +11,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.amir.system.exception.ObjectNotFoundException;
@@ -81,4 +83,8 @@ public class ArtifactService {
 
 		return chatResponse.choises().get(0).message().content();
 	}
+
+    public Page<Artifact> findAll(Pageable pageable) {
+		return this.artifactRepository.findAll(pageable);
+    }
 }

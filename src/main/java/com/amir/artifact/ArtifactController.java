@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,13 +52,12 @@ public class ArtifactController {
 	}
 	
 	@GetMapping
-	public Result findAllArtifacts() {
-		List<Artifact> foundArtifacts = this.artifactService.findAll();
-		List<ArtifactDto> artifactDtos = foundArtifacts.stream()
-//													   .map(foundArtifact -> this.artifactToArtifactDtoConverter.convert(foundArtifact))
-													   .map(this.artifactToArtifactDtoConverter::convert)
-													   .collect(Collectors.toList());
-		return new Result(true, StatusCode.SUCCESS, "Find All Success", artifactDtos);
+	public Result findAllArtifacts(Pageable pageable) {
+		Page<Artifact> artifactPage = this.artifactService.findAll(pageable);
+		Page<ArtifactDto> artifactDtoPage = artifactPage
+//										.map(foundArtifact -> this.artifactToArtifactDtoConverter.convert(foundArtifact))
+									    .map(this.artifactToArtifactDtoConverter::convert);
+		return new Result(true, StatusCode.SUCCESS, "Find All Success", artifactDtoPage);
 		
 	}
 	

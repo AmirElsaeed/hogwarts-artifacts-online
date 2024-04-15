@@ -63,6 +63,7 @@ public class SecurityConfiguration {
 		return http
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(HttpMethod.GET, this.baseUrl + "/artifacts/**").permitAll()
+						.requestMatchers(HttpMethod.POST, this.baseUrl + "/artifacts/search").permitAll()
 						.requestMatchers(HttpMethod.GET, this.baseUrl + "/users/**").hasAuthority("ROLE_admin")
 						.requestMatchers(HttpMethod.POST, this.baseUrl + "/users").hasAuthority("ROLE_admin")
 						.requestMatchers(HttpMethod.PUT, this.baseUrl + "/users/**").hasAuthority("ROLE_admin")
@@ -81,7 +82,7 @@ public class SecurityConfiguration {
 												.authenticationEntryPoint(this.customBearerTokenAuthenticationEntryPoint)
 												.accessDeniedHandler(this.customBearerTokenAccessDeniedHandler))
 				// don't keep a session for any request, this will save memory
-				.sessionManagement(sessionManagment -> sessionManagment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.build();
 	}
 	

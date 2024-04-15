@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -105,6 +106,11 @@ public class ExceptionHandlerAdvice {
 						"A rest client error occurs, see data for details.",
 						ex.getMessage())
 				, ex.getStatusCode());
+	}
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	Result handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "Required request body is missing.");
 	}
 
 	@ExceptionHandler(Exception.class)
